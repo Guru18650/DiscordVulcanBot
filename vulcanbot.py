@@ -158,7 +158,7 @@ async def send():
         else:
             embedVar = discord.Embed(title="Lekcja rozpoczęta", description=str(date.today()) + ", " + str(days[date.today().weekday()]), color=0x00ff00)
             for lesson in lekcje:
-                embedVar.add_field(name=lesson.rpartition("||")[0], value=lesson.rpartition("||")[2], inline=False)
+               embedVar.add_field(name=str(lesson.pozycja) + ". " + lesson.przedmiot, value=lesson.imienazwisko, inline=False)
             channel = dcclient.get_channel(777899451914125342)
             await channel.send(embed=embedVar)
             await client.close()
