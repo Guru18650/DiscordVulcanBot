@@ -45,7 +45,7 @@ async def on_message(message):
                 self.pozycja = pozycja 
                 self.przedmiot = przedmiot
                 self.imienazwisko = imienazwisko
-        lekcje = [];
+        lekcje = []
         
         keystore = Keystore.load(open("keystore.json"))
         account = Account.load(open("account.json"))   
@@ -67,7 +67,7 @@ async def on_message(message):
                 self.przedmiot = przedmiot 
                 self.temat = temat
                 self.deadline = deadline
-        testy = [];
+        testy = []
         keystore = Keystore.load(open("keystore.json"))
         account = Account.load(open("account.json"))   
         client = Vulcan(keystore, account)
@@ -88,7 +88,7 @@ async def on_message(message):
                 self.przedmiot = przedmiot 
                 self.temat = temat
                 self.deadline = deadline
-        zadania = [];
+        zadania = []
         keystore = Keystore.load(open("keystore.json"))
         account = Account.load(open("account.json"))   
         client = Vulcan(keystore, account)
@@ -130,7 +130,7 @@ async def send():
         lnumber = 7
     elif current_time == "14:00:00":
         lnumber = 8
-    elif current_time == "14:50:00":
+    elif current_time == "15:00:50":
         lnumber = 9
     elif current_time == "15:40:00":
         lnumber = 10
@@ -149,7 +149,7 @@ async def send():
                 self.przedmiot = przedmiot
                 self.imienazwisko = imienazwisko
         lessons = await client.data.get_lessons()
-        lekcje = [];
+        lekcje = []
         async for lesson in lessons:
             lekcje.append(testt(lesson.time.position, lesson.subject.name, lesson.teacher.name + " " + lesson.teacher.surname))
         lekcje.sort(key=lambda x: x.pozycja)
@@ -157,7 +157,9 @@ async def send():
             await client.close()
         else:
             embedVar = discord.Embed(title="Lekcja rozpoczęta", description=str(date.today()) + ", " + str(days[date.today().weekday()]), color=0x00ff00)
-            embedVar.add_field(name=str(lekcje[lnumber].pozycja) + ". " + lekcje[lnumber].przedmiot, value=lekcje[lnumber].imienazwisko, inline=False)
+            for l in lekcje:
+                if l.pozycja == lnumber:
+                    embedVar.add_field(name=str(l.pozycja) + ". " + l.przedmiot, value=l.imienazwisko, inline=False)
             channel = dcclient.get_channel(777899451914125342)
             await channel.send(embed=embedVar)
             await client.close()
@@ -167,14 +169,14 @@ async def send():
         client = Vulcan(keystore, account)
         await client.select_student() 
         lessons = await client.data.get_lessons()
-        lekcje = [];
+        lekcje = []
         class testt: 
             def __init__(self, pozycja, przedmiot, imienazwisko): 
                 self.pozycja = pozycja 
                 self.przedmiot = przedmiot
                 self.imienazwisko = imienazwisko
         lessons = await client.data.get_lessons()
-        async for lesson in lekcje:
+        for lesson in lekcje:
             lekcje.append(testt(lesson.time.position, lesson.subject.name, lesson.teacher.name + " " + lesson.teacher.surname))
         lekcje.sort(key=lambda x: x.pozycja)
         embedVar = discord.Embed(title=str(date.today()) + ", " + str(days[date.today().weekday()]), description="Do końca tygodnia pozostało " + lessonstoend[date.today().weekday()] + " lekcji", color=0x00ff00)
@@ -184,7 +186,7 @@ async def send():
             channel = dcclient.get_channel(777899451914125342)
         luckynumber = await client.data.get_lucky_number()
         embedVar.add_field(name="‎", value="Szczęśliwy numerek: " + str(luckynumber.number), inline=False)
-        testy = [];
+        testy = []
         keystore = Keystore.load(open("keystore.json"))
         account = Account.load(open("account.json"))   
         client = Vulcan(keystore, account)
@@ -205,7 +207,7 @@ async def send():
                 self.przedmiot = przedmiot 
                 self.temat = temat
                 self.deadline = deadline
-        zadania = [];
+        zadania = []
         keystore = Keystore.load(open("keystore.json"))
         account = Account.load(open("account.json"))   
         client = Vulcan(keystore, account)
@@ -231,7 +233,7 @@ async def before():
 
 send.start()
 
-dcclient.run()
+dcclient.run('')
 
 
 
