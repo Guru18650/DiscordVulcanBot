@@ -1,4 +1,4 @@
-# DiscordVulcanBot
+# DiscordVulcanBot (old, not working)
 
 1.Uruchom vulcankeystore.py
 
